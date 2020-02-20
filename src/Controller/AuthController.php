@@ -177,4 +177,34 @@ class AuthController extends AbstractController
         $consentData = json_decode($consentRes->getContent(), true);
         return new RedirectResponse( $consentData['redirect_to']);
     }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout(Request $request)
+    {
+        $challenge = $request->query->get('logout_challenge');
+
+        $uri = sprintf('http://localhost:9001/oauth2/auth/requests/logout?logout_challenge=%s', $challenge);
+        $logoutRes = $this->httpClient->request('GET', $uri);
+        $logoutData = json_decode($logoutRes->getContent(), true);
+
+        // accept logout request
+        $uri = sprintf('http://localhost:9001/oauth2/auth/requests/logout/accept?logout_challenge=%s', $challenge);
+        $logoutRes = $this->httpClient->request('PUT', $uri);
+
+        $logoutData = json_decode($logoutRes->getContent(), true);
+        return new RedirectResponse( $logoutData['redirect_to']);
+        // redirect to login with "session_end" query parameter
+    }
+
+    /**
+     * @Route("/error", name="error")
+     */
+    public function error(Request $request)
+    {
+        $data = $request->query->all();
+        $data = json_encode($data);
+        return new Response($data, 200);
+    }
 }
