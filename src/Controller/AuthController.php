@@ -36,7 +36,7 @@ class AuthController extends AbstractController
     public function __construct()
     {
         $this->httpClient = HttpClient::create();
-        $this->hydraBaseUrl = getenv('HYDRA_ADMIN') ;
+        $this->hydraBaseUrl = 'http://hydra:4445';
     }
 
     /**
