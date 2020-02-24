@@ -154,8 +154,6 @@ class AuthController extends AbstractController
         if ($data['users'])
             $scopes[] = 'users';
 
-        if ($data['campaigns'])
-            $scopes[] = 'campaigns';
 
         $sessionData = [
             'email' => 'fulano@de.tal'
