@@ -46,7 +46,7 @@ class AuthController extends AbstractController
     {
         $challenge = $request->query->get('login_challenge');
 
-        $uri = sprintf('http://localhost:9001/oauth2/auth/requests/login?login_challenge=%s', $challenge);
+        $uri = sprintf(getenv('HYDRA_ADMIN') . '/oauth2/auth/requests/login?login_challenge=%s', $challenge);
         $loginRes = $this->httpClient->request('GET', $uri);
         $loginData = json_decode($loginRes->getContent(), true);
 
@@ -80,7 +80,7 @@ class AuthController extends AbstractController
         $data = $request->request->get('user');
         $challenge = $data['login_challenge'];
 
-        $uri = sprintf('http://localhost:9001/oauth2/auth/requests/login/accept?login_challenge=%s', $challenge);
+        $uri = sprintf(getenv('HYDRA_ADMIN') .'/oauth2/auth/requests/login/accept?login_challenge=%s', $challenge);
 
         // more info about possible parameters: https://www.ory.sh/docs/hydra/sdk/api#accept-a-login-request
         $requestBody = [
@@ -104,7 +104,7 @@ class AuthController extends AbstractController
     {
         $challenge = $request->query->get('consent_challenge');
 
-        $uri = sprintf('http://localhost:9001/oauth2/auth/requests/consent?consent_challenge=%s', $challenge);
+        $uri = sprintf(getenv('HYDRA_ADMIN') . '/oauth2/auth/requests/consent?consent_challenge=%s', $challenge);
         $consentRes = $this->httpClient->request('GET', $uri);
         $consentData = json_decode($consentRes->getContent(), true);
 
@@ -155,7 +155,7 @@ class AuthController extends AbstractController
             'email' => 'fulano@de.tal'
         ];
 
-        $uri = sprintf('http://localhost:9001/oauth2/auth/requests/consent/accept?consent_challenge=%s', $challenge);
+        $uri = sprintf(getenv('HYDRA_ADMIN') . '/oauth2/auth/requests/consent/accept?consent_challenge=%s', $challenge);
 
         // more info about possible parameters: https://www.ory.sh/docs/hydra/sdk/api#accept-a-consent-request
         $requestBody = [
@@ -183,12 +183,12 @@ class AuthController extends AbstractController
     {
         $challenge = $request->query->get('logout_challenge');
 
-        $uri = sprintf('http://localhost:9001/oauth2/auth/requests/logout?logout_challenge=%s', $challenge);
+        $uri = sprintf(getenv('HYDRA_ADMIN') . '/oauth2/auth/requests/logout?logout_challenge=%s', $challenge);
         $logoutRes = $this->httpClient->request('GET', $uri);
         $logoutData = json_decode($logoutRes->getContent(), true);
 
         // accept logout request
-        $uri = sprintf('http://localhost:9001/oauth2/auth/requests/logout/accept?logout_challenge=%s', $challenge);
+        $uri = sprintf(getenv('HYDRA_ADMIN') . '/oauth2/auth/requests/logout/accept?logout_challenge=%s', $challenge);
         $logoutRes = $this->httpClient->request('PUT', $uri);
 
         $logoutData = json_decode($logoutRes->getContent(), true);
