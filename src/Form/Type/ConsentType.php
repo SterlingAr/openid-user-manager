@@ -22,7 +22,6 @@ class ConsentType extends AbstractType
     {
         $builder
             ->add('users', CheckboxType::class)
-            ->add('campaigns', CheckboxType::class)
             ->add('submit', SubmitType::class, ['label' => 'I agree']);
 
 
