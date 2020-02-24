@@ -12,22 +12,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CampaignController extends AbstractController
+class UserController extends AbstractController
 {
     /**
-     * @Route("/api/v1/campaigns", name="get_campaigns")
+     * @Route("/api/v1/users", name="get_users")
      * @param Request $request
      * @return Response
      */
-    public function getCampaigns(Request $request)
+    public function getUsers(Request $request)
     {
         //
-        $campaigns = [
-            'uuid-0-0-0',
-            'uuid-1-1-1'
+        $users = [
+            '1',
+            '2',
+            '3'
         ];
         $response = [
-            'campaigns' => $campaigns
+            'users' => $users
         ];
         $auth = $request->headers->get('Authorization');
 
